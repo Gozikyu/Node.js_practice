@@ -20,6 +20,24 @@
     <div role="main">
       <p><%=content %></p>
       <p><a href="/other">otherページに移動 &gt;&gt;</a></p>
+      <table>
+        <tr>
+          <th>伝言です！</th>
+        </tr>
+        <tr>
+          <td><%=data.msg%></td>
+        </tr>
+      </table>
+
+      <h1>クッキーのメッセージ</h1>
+      <p><%=cookie_data%></p>
+      <form method="post" action="/">
+        <label for="msg">MESSAGE</label>
+        <input type="text" name="msg" id="msg" /><input
+          type="submit"
+          value="送信"
+        />
+      </form>
     </div>
   </body>
 </html>
