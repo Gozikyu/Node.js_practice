@@ -3,7 +3,6 @@ const fs = require("fs");
 const ejs = require("ejs");
 const url = require("url");
 const qs = require("querystring");
-const { getMaxListeners } = require("process");
 
 const index_page = fs.readFileSync("./index.ejs", "utf8");
 const other_page = fs.readFileSync("./other.ejs", "utf8");
