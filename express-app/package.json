@@ -1,0 +1,21 @@
+{
+  "name": "express-app",
+  "version": "1.0.0",
+  "description": "説明文です",
+  "main": "起動時のスクリプトファイル名です",
+  "scripts": {
+    "test": "テスト実行時のコマンドです"
+  },
+  "repository": {
+    "type": "git",
+    "url": "Gitのリポジトリ名です"
+  },
+  "keywords": [
+    "関連するキーワードです"
+  ],
+  "author": "作者名です",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
