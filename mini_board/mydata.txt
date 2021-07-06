@@ -1,0 +1,9 @@
+{"id":"foo","msg":"fooMessage"}
+{"id":"hoge","msg":"test"}
+{"id":"hoge","msg":"test"}
+{"id":"hoge","msg":"test"}
+{"id":"hoge","msg":"ga"}
+{"id":"hoge","msg":"ga"}
+{"id":"hoge","msg":"foo"}
+{"id":"hoge","msg":"foo"}
+{"msg":"hoge"}
