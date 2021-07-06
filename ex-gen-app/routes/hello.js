@@ -3,17 +3,16 @@ var router = express.Router();
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  var name = req.query.name;
-  var email = req.query.email;
   var data = {
     title: "Hello",
-    content: "Please input some massages",
+    content: "Your last message is " + req.session.message,
   };
   res.render("hello", data);
 });
 
 router.post("/post", (req, res, next) => {
   var message = req.body["message"];
+  req.session.message = message;
   var data = {
     title: "Sent Message",
     content: "You sent " + message,
