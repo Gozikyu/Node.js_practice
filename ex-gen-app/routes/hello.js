@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const sqlite3 = require("sqlite3");
-
 const db = new sqlite3.Database("mydb.sqlite3");
+const { check, validationResult } = require("express-validator");
 
 router.get("/", (req, res, next) => {
   db.serialize(() => {
@@ -30,26 +30,55 @@ router.get("/", (req, res, next) => {
 
 router.get("/add", (req, res, next) => {
   var data = {
-    title: "Add record",
+    title: "Hello/add",
     content: "Please input information",
+    form: { name: "", email: "", age: 0 },
   };
   res.render("hello/add", data);
 });
 
-router.post("/add", (req, res, next) => {
-  const name = req.body.name;
-  const email = req.body.email;
-  const age = req.body.age;
-  db.serialize(() => {
-    db.run(
-      "insert into mydata (name, email, age) values (?,?,?)",
-      name,
-      email,
-      age
-    );
-  });
-  res.redirect("/hello");
-});
+router.post(
+  "/add",
+  [
+    check("name", "Name must be present").notEmpty().escape(),
+    check("email", "Email must be mail format").isEmail().escape(),
+    check("age", "Age must be integer").isInt(),
+    check("age", "Age must be 0 ~ 120").custom((value) => {
+      return (value >= 0) & (value <= 120);
+    }),
+  ],
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      var result = '<ul class="text-danger">';
+      var result_arr = errors.array();
+      for (var n in result_arr) {
+        result += "<li>" + result_arr[n].msg + "</li>";
+      }
+      result += "</ul>";
+
+      var data = {
+        title: "Hello/add",
+        content: result,
+        form: req.body,
+      };
+      res.render("hello/add", data);
+    } else {
+      const name = req.body.name;
+      const email = req.body.email;
+      const age = req.body.age;
+      db.serialize(() => {
+        db.run(
+          "insert into mydata (name, email, age) values (?,?,?)",
+          name,
+          email,
+          age
+        );
+      });
+      res.redirect("/hello");
+    }
+  }
+);
 
 router.get("/show", (req, res, next) => {
   const id = req.query.id;
